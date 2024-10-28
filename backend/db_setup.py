@@ -14,12 +14,13 @@ CREATE TABLE IF NOT EXISTS hiking_trails (
     id INT AUTO_INCREMENT PRIMARY KEY,
     national_park VARCHAR(255),
     trail_name VARCHAR(255),
-    trail_length DECIMAL(5,2),
-    trail_elevation INT,
-    hiking_time DECIMAL(5,2),
+    trail_length_miles DECIMAL(5,2),
+    trail_elevation_feet INT,
+    hiking_time_hours DECIMAL(5,2),
     camp_sites JSON,
-    trail_accessibility VARCHAR(255),
-    pets_allowed BOOLEAN
+    trail_accessibility TEXT,
+    pets_allowed BOOLEAN,
+    link_of_info VARCHAR(255)
 );
 ''')
 
