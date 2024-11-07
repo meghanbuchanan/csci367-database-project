@@ -1,13 +1,17 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-
-import HomePage from './routes/HomePage'; // Import your HomePage component
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import BaseLayout from './components/BaseLayout';
+import HomePage from './routes/HomePage';
 
 function App() {
   return (
-    <div>
-      <Typography variant="h4">Home Page</Typography>
-    </div>
+    <BrowserRouter>
+      <BaseLayout title="Bigfoot's guide to WA parks">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </BaseLayout>
+    </BrowserRouter>
   );
 }
 
