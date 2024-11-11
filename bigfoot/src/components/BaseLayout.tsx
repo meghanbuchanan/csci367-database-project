@@ -14,13 +14,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
         display: 'flex',
         flexDirection: 'column',
         height: '100vh',
-        width: '100vw'
+        width: '100vw',   
       }}
     >
       <Box
         //Top bar
         sx={{
-          backgroundColor: green[400], 
+          backgroundColor: green[900], 
           padding: '16px',
           flexShrink: 0,
           textAlign: 'center', 
@@ -32,12 +32,15 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
       </Box>
       <Box
         sx={{
-            
-            backgroundColor: 'black', 
-            flexGrow: 1, 
-            color: 'white', 
-            padding: '16px',
-            overflowY: 'auto', 
+          backgroundImage: 'url(/url2.jpeg)',
+          backgroundSize: 'cover',                 
+          backgroundPosition: 'center', 
+          //backgroundColor: 'rgba(0, 0, 0, 0.5)',     
+          flexGrow: 1, 
+          color: 'white', 
+          padding: '16px',
+          overflowY: 'auto',
+          position: 'relative'
         }}
       >
         {children}
