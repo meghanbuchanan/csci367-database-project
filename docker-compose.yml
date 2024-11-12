@@ -1,32 +1,56 @@
-version: '3.8'
-
 services:
-  db:
+  mysql:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: hiking_trails
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount the init.sql file
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: hiking_db
     ports:
       - "4040:3306"
-      
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/data/init.sql:/docker-entrypoint-initdb.d/init.sql  # Run init.sql to create the DB and table
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      timeout: 10s
+
   backend:
     build:
       context: ./backend
     environment:
-      - FLASK_ENV=development
-      - DATABASE_URL=mysql+pymysql://user:password@db/hiking_trails
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_DB=hiking_db
+    ports:
+      - "5001:5000"  # was "5000:5000"
     depends_on:
-      - db
+      mysql:
+        condition: service_healthy  # Ensure MySQL is healthy before starting the backend
     volumes:
-      - ./backend:/app
-      - ./data:/app/data  # Mount the data folder from the host to /app/data in the container
-    # Add command to run insert_data.py after the container starts
-    command: ["sh", "-c", "python /app/insert_data.py && flask run --host=0.0.0.0"]
+      - ./backend/data:/app/data  # Mount entire data folder
+    command: >
+      bash -c "python /app/insert_data.py && flask run --host=0.0.0.0"  # Run insert_data.py before starting Flask
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./bigfoot
+    ports:
+      - "5173:5173"  # was "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
-  db_data:
+  mysql_data:

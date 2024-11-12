@@ -1,24 +1,25 @@
-# Use the official Python image
-FROM python:3.10-slim
+# Use a Python base image
+FROM python:3.11-slim
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the requirements file
-COPY requirements.txt ./
+# Copy the backend files to the container's working directory
+COPY ./config.py /app/
+COPY ./insert_data.py /app/
+COPY ./data /app/data
+COPY ./requirements.txt /app/
+COPY ./app.py /app/
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install the Python dependencies
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# Set Flask app environment variable
+# Set environment variables (for Flask and MySQL connection)
 ENV FLASK_APP=app.py
-ENV FLASK_ENV=production
+ENV MYSQL_HOST=mysql
+ENV MYSQL_USER=root
+ENV MYSQL_PASSWORD=password
+ENV MYSQL_DB=hiking_db
 
-# Copy the app code
-COPY . .
-
-# Expose port for Flask
-EXPOSE 5000
-
-# Run the Flask app
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Run the data insertion script before starting the Flask app
+CMD bash -c "python /app/insert_data.py && flask run --host=0.0.0.0"

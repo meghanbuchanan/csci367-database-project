@@ -1,28 +1,49 @@
-# app.py
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-import os
+from flask import Flask, jsonify
+import mysql.connector
+from config import app_config
 
 app = Flask(__name__)
 
-# Use DATABASE_URL directly
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'mysql+pymysql://user:password@db/hiking_trails')
-db = SQLAlchemy(app)
+# Load the configuration directly
+app.config.from_object(app_config)
 
-# Define a Hike model (adjust to match your database schema)
-class Hike(db.Model):
-    __tablename__ = 'hiking_trails'  # Match the table name in your schema
-    id = db.Column(db.Integer, primary_key=True)
-    national_park = db.Column(db.String(255))
-    trail_name = db.Column(db.String(255))
-    trail_length_miles = db.Column(db.Numeric(5, 2))
-    trail_elevation_feet = db.Column(db.Integer)
-    hiking_time_hours = db.Column(db.Numeric(5, 2))
-    camp_sites = db.Column(db.JSON)  # Assuming JSON data type for camp_sites
-    trail_accessibility = db.Column(db.Text)
-    pets_allowed = db.Column(db.Boolean)
-    link_of_info = db.Column(db.String(255))
+# Example of using the config values
+MYSQL_HOST = app.config['MYSQL_HOST']
+MYSQL_USER = app.config['MYSQL_USER']
+MYSQL_PASSWORD = app.config['MYSQL_PASSWORD']
+MYSQL_DB = app.config['MYSQL_DB']
 
-    # Add a method to return model data as a dictionary for jsonify
-    def as_dict(self):
-        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
+def get_db_connection():
+    conn = mysql.connector.connect(
+        host=MYSQL_HOST,
+        user=MYSQL_USER,
+        password=MYSQL_PASSWORD,
+        database=MYSQL_DB
+    )
+    return conn
+
+# These are examples of API requests
+
+# @app.route('/api/getTrails', methods=['GET'])
+# def get_trails():
+#     conn = get_db_connection()
+#     cursor = conn.cursor(dictionary=True)
+#     cursor.execute('SELECT * FROM trails')  # Assuming you have a `trails` table
+#     trails = cursor.fetchall()
+#     cursor.close()
+#     conn.close()
+#     return jsonify(trails)
+
+# @app.route('/api/searchTrails', methods=['GET'])
+# def search_trails():
+#     query = request.args.get('query', '')
+#     conn = get_db_connection()
+#     cursor = conn.cursor(dictionary=True)
+#     cursor.execute(f"SELECT * FROM trails WHERE name LIKE %s", ('%' + query + '%',))
+#     trails = cursor.fetchall()
+#     cursor.close()
+#     conn.close()
+#     return jsonify(trails)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

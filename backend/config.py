@@ -1,12 +1,12 @@
 import os
 
 class Config:
-    DB_HOST = os.getenv("DB_HOST", "db")  # Change localhost to db
-    DB_USER = os.getenv("DB_USER", "user")  # Use 'user' as defined in docker-compose
-    DB_PASSWORD = os.getenv("DB_PASSWORD", "password")  # Use 'password' as defined in docker-compose
-    DB_NAME = os.getenv("DB_NAME", "hiking_trails")  # Use 'hiking_trails' as defined in docker-compose
-    
-    SQLALCHEMY_DATABASE_URI = (
-        f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
-    )
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    """Configuration for the app."""
+    MYSQL_HOST = os.getenv('MYSQL_HOST', 'mysql')  # 'mysql' refers to the MySQL service in docker-compose
+    MYSQL_USER = os.getenv('MYSQL_USER', 'root')
+    MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', 'password')
+    MYSQL_DB = os.getenv('MYSQL_DB', 'hiking_trails')
+
+# Using the Config class directly without needing environment-specific subclasses.
+app_config = Config
+

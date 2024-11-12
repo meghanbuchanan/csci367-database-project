@@ -1,20 +1,42 @@
 import mysql.connector
 import pandas as pd
+import time
 from config import Config
 
+# Wait for MySQL to be ready
+def wait_for_mysql():
+    while True:
+        try:
+            conn = mysql.connector.connect(
+                host=Config.MYSQL_HOST,
+                user=Config.MYSQL_USER,
+                password=Config.MYSQL_PASSWORD,
+                database=Config.MYSQL_DB
+            )
+            conn.close()
+            print("MySQL is ready!")
+            break
+        except mysql.connector.Error as err:
+            print(f"MySQL not ready: {err}")
+            time.sleep(5)
+
+# Read the Excel file
 df = pd.read_excel('/app/data/hiking_data.xlsx')
+
+# Ensure MySQL is ready before continuing
+wait_for_mysql()
 
 try:
     conn = mysql.connector.connect(
-        host=Config.DB_HOST,
-        user=Config.DB_USER,
-        password=Config.DB_PASSWORD,
-        database=Config.DB_NAME
+        host=Config.MYSQL_HOST,
+        user=Config.MYSQL_USER,
+        password=Config.MYSQL_PASSWORD,
+        database=Config.MYSQL_DB
     )
     cursor = conn.cursor()
 
+    # Insert data into the hiking_trails table
     for _, row in df.iterrows():
-        # Use ON DUPLICATE KEY UPDATE to update specific fields on duplicate entries
         cursor.execute('''
         INSERT INTO hiking_trails (national_park, trail_name, trail_length_miles, trail_elevation_feet,
                                     hiking_time_hours, camp_sites, trail_accessibility, pets_allowed, link_of_info)
