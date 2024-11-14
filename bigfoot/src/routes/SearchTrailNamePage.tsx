@@ -45,9 +45,9 @@ const SearchTrailNamePage = () => {
                 color="primary"
                 onClick={handleSearch}
                 sx={{
-                backgroundColor: green[500], // Set button background to green
+                backgroundColor: green[500], 
                 '&:hover': {
-                    backgroundColor: green[700], // Darker green on hover
+                    backgroundColor: green[700], 
                 },
                 }}
             >
