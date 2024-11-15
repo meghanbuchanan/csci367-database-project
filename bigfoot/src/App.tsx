@@ -4,6 +4,8 @@ import HomePage from './routes/HomePage';
 import SearchDetailsPage from './routes/SearchDetailsPage';
 import SearchTrailNamePage from './routes/SearchTrailNamePage';
 import ResultPage from './routes/ResultsPage';
+import SelectionPage from './routes/SelectionPage';
+import HikeInfoPage from './routes/HikeInfoPage';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
           <Route path="/details" element={<SearchDetailsPage />} />
           <Route path="/trail" element={<SearchTrailNamePage />} />
           <Route path="/results" element={<ResultPage />} />
+          <Route path="/selection" element={<SelectionPage />} />
+          <Route path="/hikeInfo" element={<HikeInfoPage />} />
         </Routes>
       </BaseLayout>
     </BrowserRouter>

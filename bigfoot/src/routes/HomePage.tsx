@@ -21,29 +21,6 @@ const HomePage = () => {
       <Box sx={{ position: 'relative', height: '200px', marginBottom: '20px' }}>
         <Button
           variant="contained"
-          onClick={handleTrailName}
-          sx={{
-            backgroundColor: green[500],
-            '&:hover': {
-              backgroundColor: green[700],
-            },
-            position: 'absolute',
-            zIndex: 10,
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            padding: '12px 24px',
-            fontSize: '3rem',
-            width: '500px',
-            height: '150px',
-          }}
-        >
-          Trail Name
-        </Button>
-      </Box>
-      <Box sx={{ position: 'relative', height: '200px', marginBottom: '20px' }}>
-        <Button
-          variant="contained"
           onClick={handleDetails}
           sx={{
             backgroundColor: green[500],
@@ -62,6 +39,29 @@ const HomePage = () => {
           }}
         >
           Trail Details
+        </Button>
+      </Box>
+      <Box sx={{ position: 'relative', height: '200px', marginBottom: '20px' }}>
+        <Button
+          variant="contained"
+          onClick={handleTrailName}
+          sx={{
+            backgroundColor: green[500],
+            '&:hover': {
+              backgroundColor: green[700],
+            },
+            position: 'absolute',
+            zIndex: 10,
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            padding: '12px 24px',
+            fontSize: '3rem',
+            width: '500px',
+            height: '150px',
+          }}
+        >
+          Trail Name
         </Button>
       </Box>
     </div>
