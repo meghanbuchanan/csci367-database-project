@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { TextField, Box, Button } from '@mui/material';
 import { green } from '@mui/material/colors';
+import { useNavigate } from 'react-router-dom';
 
 const SearchTrailNamePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   // Handle search input change
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +14,11 @@ const SearchTrailNamePage = () => {
 
   // Handle search button click
   const handleSearch = () => {
-    console.log("Search query:", searchQuery); 
+    if (searchQuery.trim() !== '') {
+      navigate(`/results?name=${encodeURIComponent(searchQuery)}`);
+    } else {
+      console.log('Please enter a valid search query');
+    }
   };
 
   return (

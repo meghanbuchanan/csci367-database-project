@@ -3,6 +3,7 @@ import BaseLayout from './components/BaseLayout';
 import HomePage from './routes/HomePage';
 import SearchDetailsPage from './routes/SearchDetailsPage';
 import SearchTrailNamePage from './routes/SearchTrailNamePage';
+import ResultPage from './routes/ResultsPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/details" element={<SearchDetailsPage />} />
           <Route path="/trail" element={<SearchTrailNamePage />} />
+          <Route path="/results" element={<ResultPage />} />
         </Routes>
       </BaseLayout>
     </BrowserRouter>

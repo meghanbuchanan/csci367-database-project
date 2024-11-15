@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import mysql.connector
 from config import app_config
 
@@ -44,6 +44,23 @@ def get_db_connection():
 #     cursor.close()
 #     conn.close()
 #     return jsonify(trails)
+
+@app.route('/search', methods=['GET'])
+def search_hikes():
+    trail_name = request.args.get('name', '')
+    
+    if not trail_name:
+        return jsonify([])
+    
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    query = "SELECT * FROM hiking_trails WHERE trail_name LIKE %s"
+    cursor.execute(query, (f"%{trail_name}%"))
+    results = cursor.fetchall()
+
+    conn.close()
+    return jsonify(results)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
