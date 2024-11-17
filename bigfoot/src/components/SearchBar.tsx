@@ -1,43 +1,57 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Box, TextField, Button } from '@mui/material';
+import { green } from '@mui/material/colors';
 
-// Defining the structure of the API response, was getting errors without this
-interface Hike {
-    trail_name: string;
+// Defining the structure of the API response
+interface SearchBarProps {
+    searchQuery: string;
+    setSearchQuery: (query:string) => void;
+    onSearch: () => void;
 }
 
-const SearchBar = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [results, setResults] = useState<Hike[]>([]);
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value);
-    };
-
-    const handleSearch = async () => {
-        try {
-            const response = await fetch(`http://localhost:5000/search?name=${encodeURIComponent(searchQuery)}`);
-            const data: Hike[] = await response.json();
-            setResults(data);
-        } catch (error) {
-            console.error('Error fetching search results:', error);
-        }
-    };
-
+const SearchBar: React.FC<SearchBarProps> = ({
+    searchQuery,
+    setSearchQuery,
+    onSearch,
+}) => {
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Search for a hike..."
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2}}>
+            <TextField
+                variant="outlined"
+                label="Search"
                 value={searchQuery}
-                onChange={handleInputChange}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                sx={{
+                    width: '300px',
+                    marginRight: 1,
+                    backgroundColor: 'white',
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: green[500],
+                        },
+                        '&:hover fieldset': {
+                            borderColor: green[700],
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: green[700],
+                        },
+                    },
+                }}
             />
-            <button onClick={handleSearch}>Search</button>
-            <ul>
-                {results.map((result, index) => (
-                    <li key={index}>{result.trail_name}</li>
-                ))}
-            </ul>
-        </div>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={onSearch}
+                sx={{
+                    backgroundColor: green[500],
+                    '&:hover': {
+                        backgroundColor: green[700],
+                    },
+                }}
+            >
+                Search
+            </Button>
+        </Box>
     );
 };
 
