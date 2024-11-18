@@ -3,23 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 
 const SearchTrailNamePage = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+    const [trailName, setTrailName] = useState('');
     const navigate = useNavigate();
 
-    // Handle search button click
-    const handleSearch = () => {
-        if (searchQuery.trim() !== '') {
-            navigate(`/search?name=${encodeURIComponent(searchQuery)}`);
-        } else {
-              console.log('Please enter a valid search query');
-        }
+    const handleSearch = async () => {
+        const response = await fetch(`http://localhost:5001/names/search?name=${trailName}`);
+        const data = await response.json();
+        navigate('/selection', { state: { results: data } });
     };
 
     return (
         <div>
             <SearchBar
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
+                searchQuery={trailName}
+                setSearchQuery={setTrailName}
                 onSearch={handleSearch}
             />
         </div>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import SearchBar from '../components/SearchBar';
 import HikeCard from '../components/HikeCard';
 
 interface Hike {
@@ -13,45 +12,43 @@ interface Hike {
 const SelectionPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [searchQuery, setSearchQuery] = useState('');
     const [results, setResults] = useState<Hike[]>([]);
 
-    // Get the 'name' query parameter from the URL
     useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const queryName = queryParams.get('name');
-        if (queryName) {
-            setSearchQuery(queryName); 
-            fetchSearchResults(queryName); 
+        if (location.state && location.state.results) {
+            setResults(location.state.results);
         }
-    }, [location.search]);
-
-
-    const fetchSearchResults = async (query: string) => {
-        try {
-            const response = await fetch(`http://localhost:5001/search?name=${encodeURIComponent(query)}`);
-            const data: Hike[] = await response.json();
-            setResults(data);
-        } catch (error) {
-            console.error('Error fetching search results:', error);
-        }
-    };
+    }, [location.state]);
 
     const handleHikeClick = (hikeId: number) => {
         navigate(`/HikeInfo/${hikeId}`);
     };
 
+    const handleGoToSearchName = () => {
+        navigate('/name');
+    };
+
+    const handleGoToSearchDetail = () => {
+        navigate('/details')
+    }
+
     return (
         <div>
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                <SearchBar
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    onSearch={() => fetchSearchResults(searchQuery)}
-                />
+            <Box sx={{display: 'flex', justifyContent: 'space-between', marginTop: 2, padding: 2 }}>
+                <Button variant="contained" color="primary" onClick={handleGoToSearchName}>
+                    Back to Name Search
+                </Button>
+                <Button variant="contained" color="secondary" onClick={handleGoToSearchDetail}>
+                    Back to Detail Search
+                </Button>
             </Box>
 
             <Box sx={{ marginTop: 4, padding: 2 }}>
+                <Typography variant="h6" sx={{ color: 'green', fontWeight: 'bold' }}>
+                    {results.length > 0 ? `${results.length} hike(s) found` : 'No hikes found. Try searching for another trail.'}
+                </Typography>
+
+                {/* Show hikes or no result message */}
                 {results.length > 0 ? (
                     results.map((hike) => (
                         <HikeCard
@@ -62,9 +59,7 @@ const SelectionPage = () => {
                             onClick={handleHikeClick}
                         />
                     ))
-                ) : (
-                    <Typography>No hikes found. Try searching for another trail.</Typography>
-                )}
+                ) : null}
             </Box>
         </div>
     );

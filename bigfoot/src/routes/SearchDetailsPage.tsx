@@ -1,97 +1,121 @@
-import { useState } from 'react';
-import {  Box, Button, FormControl, InputLabel, Select, MenuItem, Checkbox, ListItemText, Typography, Slider } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Button, FormControl, Typography, Slider, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 import { green } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 
 const SearchDetailsPage = () => {
-  const navigate = useNavigate(); 
-  const [selectedParks, setSelectedParks] = useState<string[]>([]);
-  const [lengthRange, setLengthRange] = useState<number>(0);
-  const [elevationRange, setElevationRange] = useState<number>(0);
-  const [timeRange, setTimeRange] = useState<number>(0);
-  const [selectedPets, setSelectedPets] = useState<string[]>([]);
-  const [selectedCamping, setSelectedCamping] = useState<string[]>([]);
+  const navigate = useNavigate();
+  const [selectedPark, setSelectedPark] = useState<string>('all');
+  const [lengthRange, setLengthRange] = useState([0, 45]);
+  const [elevationRange, setElevationRange] = useState([0, 12000]);
+  const [timeRange, setTimeRange] = useState([0, 48]);
+  const [pets, setPets] = useState<string>('all'); 
+  const [camping, setCamping] = useState<string>('all'); 
 
-  const handleParkSelectionChange = (event: { target: { value: any; }; }) => {
-    const value = event.target.value;
-    setSelectedParks(typeof value === 'string' ? value.split(',') : value);
+  const handleParkChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedPark(event.target.value);
   };
 
   const handleLengthChange = (_: Event, newValue: number | number[]) => {
-    setLengthRange(newValue as number);
+    setLengthRange(newValue as number[]);
   };
 
   const handleElevationChange = (_: Event, newValue: number | number[]) => {
-    setElevationRange(newValue as number);
+    setElevationRange(newValue as number[]);
   };
 
   const handleTimeChange = (_: Event, newValue: number | number[]) => {
-    setTimeRange(newValue as number);
+    setTimeRange(newValue as number[]);
   };
 
-  const handlePetSelectionChange = (event: { target: { value: any; }; }) => {
-    const value = event.target.value;
-    setSelectedPets(typeof value === 'string' ? value.split(',') : value);
+  const handlePetsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPets(event.target.value);
+    console.log("Pets Clicked: ", pets);
   };
 
-  const handleCampingSelectionChange = (event: { target: { value: any; }; }) => {
-    const value = event.target.value;
-    setSelectedCamping(typeof value === 'string' ? value.split(',') : value);
+  const handleCampingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCamping(event.target.value);
   };
 
-  const handleSearch = () => {
-    navigate('/selection');
+  const handleSearch = async () => {
+    const queryParams = new URLSearchParams();
+
+    if (selectedPark !== 'all') {
+      queryParams.append("park", selectedPark);
+    }
+
+    if (lengthRange) {
+      queryParams.append("lengthMin", lengthRange[0].toString());
+      queryParams.append("lengthMax", lengthRange[1].toString());
+    }
+    
+    if (elevationRange) {
+      queryParams.append("elevationMin", elevationRange[0].toString());
+      queryParams.append("elevationMax", elevationRange[1].toString());
+    }
+
+    if (timeRange) {
+      queryParams.append("timeMin", timeRange[0].toString());
+      queryParams.append("timeMax", timeRange[1].toString());
+    }
+
+    if (pets !== 'all') {
+      queryParams.append("pets", pets); // Only append if not "all"
+    }
+
+    if (camping !== 'all') {
+      queryParams.append("camping", camping); // Only append if not "all"
+    }
+
+    console.log(queryParams.toString());
+    const response = await fetch(`http://localhost:5001/details/search?${queryParams.toString()}`);
+    const data = await response.json();
+    navigate('/selection', { state: { results: data } });
+  
   };
 
   return (
     <div>
         {/* Park */}
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-            <FormControl sx={{ width: '300px', marginRight: 1 }}>
-            <InputLabel sx={{color: green[500], '&.Mui-focused': {color: green[700],},}}>Park</InputLabel>
-                <Select
-                    value={selectedParks}
-                    onChange={handleParkSelectionChange}
-                    label="Park"
-                    multiple
-                    renderValue={(selected) => (
-                      <Box>
-                        {selected.map((value) => (
-                          <Box key={value} sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Checkbox checked />
-                            <ListItemText primary={ value === 'onp' ? 'Olympic Nstional Park' : value === 'mrnp' ? 'Mount Rainer National Park' : 'North Cascades National Park'} />
-                          </Box>
-                        ))}
-                      </Box>
-                    )}
-                    sx={{ 
-                        backgroundColor: 'white', 
-                        '& .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[500],
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[700],
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[700],
-                        },
-                    }}>  
-                    <MenuItem value="onp">
-                      <Checkbox checked={selectedParks.includes("onp")} />
-                      <ListItemText primary="Olympic National Park" />
-                    </MenuItem>
-                    <MenuItem value="mrnp">
-                      <Checkbox checked={selectedParks.includes("mrnp")} />
-                      <ListItemText primary="Mount Rainer National Park" />
-                    </MenuItem>
-                    <MenuItem value="ncnp">
-                      <Checkbox checked={selectedParks.includes("ncnp")} />
-                      <ListItemText primary="North Cascades National Park" />
-                    </MenuItem>
-                </Select>
-            </FormControl>
+          <FormControl 
+            sx={{ 
+              width: '300px', 
+              backgroundColor: 'rgba(0, 0, 0, 0.6)', // Semi-transparent black for higher contrast
+              borderRadius: '8px', 
+              padding: '16px',
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.3)', // Subtle shadow for depth
+            }}
+          >
+            <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '8px' }}>
+              National Park
+            </Typography>
+            <RadioGroup row value={selectedPark} onChange={handleParkChange}>
+              <FormControlLabel 
+                value="Olympic National Park" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>Olympic National Park</Typography>} 
+              />
+              <FormControlLabel 
+                value="Mount Rainier National Park" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>Mount Rainier National Park</Typography>} 
+              />
+              <FormControlLabel 
+                value="North Cascades National Park" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>North Cascades National Park</Typography>} 
+              />
+              <FormControlLabel 
+                value="all" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>Any Park</Typography>} 
+              />
+            </RadioGroup>
+          </FormControl>
         </Box>
-        {/* Length , Elevation, Time */}
+
+        {/* Length, Elevation, Time */}
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2, gap: 1.5 }}>
               <Box
                 sx={{
@@ -106,7 +130,8 @@ const SearchDetailsPage = () => {
                   value={lengthRange}
                   onChange={handleLengthChange}
                   min={0}
-                  max={35}
+                  max={45}
+                  step={5}
                   valueLabelDisplay="auto" 
                   sx={{
                     color: green[500],
@@ -120,7 +145,7 @@ const SearchDetailsPage = () => {
                       backgroundColor: green[300],
                     },}}/>
               <Typography variant="body2" align="center" sx={{ color: green[500], fontSize: '20px' }}>
-                Length: {lengthRange} mi
+                Length: {lengthRange[0]} - {lengthRange[1]} mi
               </Typography>
             </Box>
             <Box
@@ -137,6 +162,7 @@ const SearchDetailsPage = () => {
                   onChange={handleElevationChange}
                   min={0}
                   max={12000}
+                  step={100}
                   valueLabelDisplay="auto" 
                   sx={{
                     color: green[500],
@@ -150,7 +176,7 @@ const SearchDetailsPage = () => {
                       backgroundColor: green[300],
                     },}}/>
               <Typography variant="body2" align="center" sx={{ color: green[500], fontSize: '20px' }}>
-                Elevation: {elevationRange} ft
+                Elevation: {elevationRange[0]} - {elevationRange[1]} ft
               </Typography>
             </Box>
             <Box
@@ -166,7 +192,8 @@ const SearchDetailsPage = () => {
                   value={timeRange}
                   onChange={handleTimeChange}
                   min={0}
-                  max={50}
+                  max={48}
+                  step={1}
                   valueLabelDisplay="auto" 
                   sx={{
                     color: green[500],
@@ -180,117 +207,92 @@ const SearchDetailsPage = () => {
                       backgroundColor: green[300],
                     },}}/>
               <Typography variant="body2" align="center" sx={{ color: green[500], fontSize: '20px' }}>
-                Time: {timeRange} hrs
+                Time: {timeRange[0]} - {timeRange[1]} hrs
               </Typography>
             </Box>
-        </Box>
-        
-        {/* Pets, Camping */}
+          </Box>
+
+        {/* Pets */}
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-          <FormControl sx={{ width: '300px', marginRight: 1 }}>
-            <InputLabel sx={{color: green[500], '&.Mui-focused': {color: green[700],},}}>Pets</InputLabel>
-                <Select
-                    value={selectedPets}
-                    onChange={handlePetSelectionChange}
-                    label="Pets"
-                    multiple
-                    renderValue={(selected) => (
-                      <Box>
-                        {selected.map((value) => (
-                          <Box key={value} sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Checkbox checked />
-                            <ListItemText primary={ value === 'allowed' ? 'Allowed' : value === 'notAllowed' ? 'Not Allowed' : 'No Preference'} />
-                          </Box>
-                        ))}
-                      </Box>
-                    )}
-                    sx={{ 
-                        backgroundColor: 'white', 
-                        '& .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[500],
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[700],
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[700],
-                        },
-                    }}>  
-                    <MenuItem value="allowed">
-                      <Checkbox checked={selectedPets.includes("allowed")} />
-                      <ListItemText primary="Allowed" />
-                    </MenuItem>
-                    <MenuItem value="notAllowed">
-                      <Checkbox checked={selectedPets.includes("notAllowed")} />
-                      <ListItemText primary="Not Allowed" />
-                    </MenuItem>
-                    <MenuItem value="noPreference">
-                      <Checkbox checked={selectedPets.includes("noPreference")} />
-                      <ListItemText primary="No Preference" />
-                    </MenuItem>
-                </Select>
-            </FormControl>
-            <FormControl sx={{ width: '300px', marginRight: 1 }}>
-              <InputLabel sx={{color: green[500], '&.Mui-focused': {color: green[700],},}}>Camping</InputLabel>
-                <Select
-                    value={selectedCamping}
-                    onChange={handleCampingSelectionChange}
-                    label="Camping"
-                    multiple
-                    renderValue={(selected) => (
-                      <Box>
-                        {selected.map((value) => (
-                          <Box key={value} sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Checkbox checked />
-                            <ListItemText primary={ value === 'yes' ? 'Yes' : value === 'no' ? 'No' : 'No Preference'} />
-                          </Box>
-                        ))}
-                      </Box>
-                    )}
-                    sx={{ 
-                        backgroundColor: 'white', 
-                        '& .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[500],
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[700],
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderColor: green[700],
-                        },
-                    }}>  
-                    <MenuItem value="yes">
-                      <Checkbox checked={selectedCamping.includes("yes")} />
-                      <ListItemText primary="Yes" />
-                    </MenuItem>
-                    <MenuItem value="no">
-                      <Checkbox checked={selectedCamping.includes("no")} />
-                      <ListItemText primary="No" />
-                    </MenuItem>
-                    <MenuItem value="noPreference">
-                      <Checkbox checked={selectedCamping.includes("noPreference")} />
-                      <ListItemText primary="No Preference" />
-                    </MenuItem>
-                </Select>
-            </FormControl>
+          <FormControl 
+            sx={{ 
+              width: '300px', 
+              backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+              borderRadius: '8px', 
+              padding: '16px', 
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.3)', 
+              marginBottom: 2
+            }}>
+            <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '8px' }}>
+              Dogs Allowed
+            </Typography>
+            <RadioGroup row value={pets} onChange={handlePetsChange}>
+              <FormControlLabel 
+                value="true" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>Yes</Typography>} 
+              />
+              <FormControlLabel 
+                value="false" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>No</Typography>} 
+              />
+              <FormControlLabel 
+                value="all" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>No Preference</Typography>} 
+              />
+            </RadioGroup>
+          </FormControl>
         </Box>
 
-        {/* Search */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2, height: '50px', }}>
+        {/* Camping */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+          <FormControl 
+            sx={{ 
+              width: '300px', 
+              backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+              borderRadius: '8px', 
+              padding: '16px', 
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.3)', 
+              marginBottom: 2
+            }}
+          >
+            <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '8px' }}>
+              Camping Available
+            </Typography>
+            <RadioGroup row value={camping} onChange={handleCampingChange}>
+              <FormControlLabel 
+                value="true" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>Yes</Typography>} 
+              />
+              <FormControlLabel 
+                value="false" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>No</Typography>} 
+              />
+              <FormControlLabel 
+                value="all" 
+                control={<Radio sx={{ color: '#4CAF50', '&.Mui-checked': { color: '#FFFFFF' } }} />} 
+                label={<Typography sx={{ color: '#FFFFFF' }}>No Preference</Typography>} 
+              />
+            </RadioGroup>
+          </FormControl>
+        </Box>
+
+        {/* Submit Button */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
           <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSearch}
-                sx={{
-                    backgroundColor: green[500],
-                    '&:hover': {
-                        backgroundColor: green[700],
-                    },
-                    fontSize: '2rem',
-                    width: '40%',
-                }}
-            >
-              Search
+            variant="contained"
+            sx={{
+              backgroundColor: green[500],
+              color: 'white',
+              '&:hover': { backgroundColor: green[700] },
+            }}
+            onClick={handleSearch}
+          >
+            Search
           </Button>
         </Box>
     </div>

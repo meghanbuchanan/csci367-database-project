@@ -13,10 +13,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/details" element={<SearchDetailsPage />} />
-          <Route path="/trail" element={<SearchTrailNamePage />} />
+          <Route path="/name" element={<SearchTrailNamePage />} />
           <Route path="/selection" element={<SelectionPage />} />
           <Route path="/hikeInfo" element={<HikeInfoPage />} />
-          <Route path="/search" element={<SelectionPage />} />
+          <Route path="/names/search" element={<SelectionPage />} />
+          <Route path="/details/search" element={<SelectionPage />} />
         </Routes>
       </BaseLayout>
     </BrowserRouter>
