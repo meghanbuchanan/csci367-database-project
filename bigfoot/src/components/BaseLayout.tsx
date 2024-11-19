@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { green } from "@mui/material/colors";
+import { useNavigate } from 'react-router-dom';
+import { Home } from '@mui/icons-material';
 
 interface BaseLayoutProps {
   title: string;
@@ -8,6 +10,12 @@ interface BaseLayoutProps {
 }
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
+  const navigate = useNavigate();
+
+  const handleHome = () => {
+    navigate('/');
+  };
+
   return (
     <Box
       sx={{
@@ -29,13 +37,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
         <Typography variant="h2" color="white">
           {title}
         </Typography>
+        <Button
+          sx={{ backgroundColor: green[500], '&:hover': { backgroundColor: green[700] }, color: 'white' }}
+          startIcon={<Home />}
+          onClick={handleHome}
+        >
+          Home
+        </Button>
       </Box>
       <Box
         sx={{
           backgroundImage: 'url(/url2.jpeg)',
           backgroundSize: 'cover',                 
-          backgroundPosition: 'center', 
-          //backgroundColor: 'rgba(0, 0, 0, 0.5)',     
+          backgroundPosition: 'center',
           flexGrow: 1, 
           color: 'white', 
           padding: '16px',

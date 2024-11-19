@@ -120,7 +120,7 @@ const SearchDetailsPage = () => {
               <Box
                 sx={{
                   width: '200px', 
-                  backgroundColor: 'white',
+                  backgroundColor: 'rgba(0, 0, 0, 0.6)',
                   padding: '16px', 
                   borderRadius: '8px',
                   boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', 
@@ -139,19 +139,19 @@ const SearchDetailsPage = () => {
                       color: green[700],
                     },
                     '& .MuiSlider-track': {
-                      backgroundColor: green[500],
+                      backgroundColor: "white",
                     },
                     '& .MuiSlider-rail': {
                       backgroundColor: green[300],
                     },}}/>
-              <Typography variant="body2" align="center" sx={{ color: green[500], fontSize: '20px' }}>
+              <Typography variant="body2" align="center" sx={{ color: "white", fontSize: '20px' }}>
                 Length: {lengthRange[0]} - {lengthRange[1]} mi
               </Typography>
             </Box>
             <Box
                 sx={{
                   width: '200px', 
-                  backgroundColor: 'white',
+                  backgroundColor: 'rgba(0, 0, 0, 0.6)',
                   padding: '16px', 
                   borderRadius: '8px',
                   boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
@@ -170,19 +170,19 @@ const SearchDetailsPage = () => {
                       color: green[700],
                     },
                     '& .MuiSlider-track': {
-                      backgroundColor: green[500],
+                      backgroundColor: "white",
                     },
                     '& .MuiSlider-rail': {
                       backgroundColor: green[300],
                     },}}/>
-              <Typography variant="body2" align="center" sx={{ color: green[500], fontSize: '20px' }}>
+              <Typography variant="body2" align="center" sx={{ color: "white", fontSize: '20px' }}>
                 Elevation: {elevationRange[0]} - {elevationRange[1]} ft
               </Typography>
             </Box>
             <Box
                 sx={{
                   width: '200px', 
-                  backgroundColor: 'white',
+                  backgroundColor: 'rgba(0, 0, 0, 0.6)',
                   padding: '16px', 
                   borderRadius: '8px',
                   boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', 
@@ -201,12 +201,12 @@ const SearchDetailsPage = () => {
                       color: green[700],
                     },
                     '& .MuiSlider-track': {
-                      backgroundColor: green[500],
+                      backgroundColor: "white",
                     },
                     '& .MuiSlider-rail': {
                       backgroundColor: green[300],
                     },}}/>
-              <Typography variant="body2" align="center" sx={{ color: green[500], fontSize: '20px' }}>
+              <Typography variant="body2" align="center" sx={{ color: "white", fontSize: '20px' }}>
                 Time: {timeRange[0]} - {timeRange[1]} hrs
               </Typography>
             </Box>

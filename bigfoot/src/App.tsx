@@ -15,7 +15,7 @@ function App() {
           <Route path="/details" element={<SearchDetailsPage />} />
           <Route path="/name" element={<SearchTrailNamePage />} />
           <Route path="/selection" element={<SelectionPage />} />
-          <Route path="/hikeInfo" element={<HikeInfoPage />} />
+          <Route path="/hikeInfo/:hikeId" element={<HikeInfoPage />} />
           <Route path="/names/search" element={<SelectionPage />} />
           <Route path="/details/search" element={<SelectionPage />} />
         </Routes>

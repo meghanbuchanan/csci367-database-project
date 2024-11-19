@@ -35,6 +35,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
                         '&.Mui-focused fieldset': {
                             borderColor: green[700],
                         },
+                        '& input': {
+                            backgroundColor: 'white', 
+                        },
                     },
                 }}
             />

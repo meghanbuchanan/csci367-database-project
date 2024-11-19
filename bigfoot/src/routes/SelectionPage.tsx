@@ -1,18 +1,26 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import HikeCard from '../components/HikeCard';
+import SearchBar from '../components/SearchBar';
 
 interface Hike {
     id: number;
     trail_name: string;
     trail_length_miles: number;
-}
+    trail_elevation_feet: number;
+    hiking_time_hours: number;
+    camp_sites: boolean;
+    trail_accessibility: string;
+    pets_allowed: boolean;
+    link_of_info: boolean;
+  }
 
 const SelectionPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [results, setResults] = useState<Hike[]>([]);
+    const [trailName, setTrailName] = useState('');
 
     useEffect(() => {
         if (location.state && location.state.results) {
@@ -21,28 +29,25 @@ const SelectionPage = () => {
     }, [location.state]);
 
     const handleHikeClick = (hikeId: number) => {
-        navigate(`/HikeInfo/${hikeId}`);
+        const selectedHike = results.find((hike) => hike.id === hikeId);
+        if (selectedHike) {
+            navigate(`/HikeInfo/${hikeId}`, { state: { hike: selectedHike } });
+        }
     };
 
-    const handleGoToSearchName = () => {
-        navigate('/name');
+    const handleSearch = async () => {
+        const response = await fetch(`http://localhost:5001/names/search?name=${trailName}`);
+        const data = await response.json();
+        navigate('/selection', { state: { results: data } });
     };
-
-    const handleGoToSearchDetail = () => {
-        navigate('/details')
-    }
 
     return (
         <div>
-            <Box sx={{display: 'flex', justifyContent: 'space-between', marginTop: 2, padding: 2 }}>
-                <Button variant="contained" color="primary" onClick={handleGoToSearchName}>
-                    Back to Name Search
-                </Button>
-                <Button variant="contained" color="secondary" onClick={handleGoToSearchDetail}>
-                    Back to Detail Search
-                </Button>
-            </Box>
-
+            <SearchBar
+                searchQuery={trailName}
+                setSearchQuery={setTrailName}
+                onSearch={handleSearch}
+            />
             <Box sx={{ marginTop: 4, padding: 2 }}>
                 <Typography variant="h6" sx={{ color: 'green', fontWeight: 'bold' }}>
                     {results.length > 0 ? `${results.length} hike(s) found` : 'No hikes found. Try searching for another trail.'}
