@@ -25,7 +25,7 @@ const HikeInfoPage = () => {
   }
 
   const handleBack = () => {
-    navigate('/selection')
+    navigate(-1)
   }
   
   return (
