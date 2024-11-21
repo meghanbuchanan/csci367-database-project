@@ -39,7 +39,7 @@ def search_trail_by_name(name: str):
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     query = """
-        SELECT id, trail_name, trail_length_miles
+        SELECT id, trail_name, trail_length_miles, trail_elevation_feet, hiking_time_hours, pets_allowed, camp_sites, national_park, trail_accessibility, link_of_info
         FROM hiking_trails
         WHERE trail_name LIKE %s
     """

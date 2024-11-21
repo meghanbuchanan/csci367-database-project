@@ -7,10 +7,11 @@ import SearchBar from '../components/SearchBar';
 interface Hike {
     id: number;
     trail_name: string;
+    national_park: string;
     trail_length_miles: number;
     trail_elevation_feet: number;
     hiking_time_hours: number;
-    camp_sites: boolean;
+    camp_sites: string[];
     trail_accessibility: string;
     pets_allowed: boolean;
     link_of_info: boolean;
@@ -21,7 +22,7 @@ const SelectionPage = () => {
     const location = useLocation();
     const [results, setResults] = useState<Hike[]>([]);
     const [trailName, setTrailName] = useState('');
-
+    
     useEffect(() => {
         if (location.state && location.state.results) {
             setResults(location.state.results);

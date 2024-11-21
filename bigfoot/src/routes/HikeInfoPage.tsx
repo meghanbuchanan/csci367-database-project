@@ -6,10 +6,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 interface Hike {
   id: number;
   trail_name: string;
+  national_park: string;
   trail_length_miles: number;
   trail_elevation_feet: number;
   hiking_time_hours: number;
-  camp_sites: boolean;
+  camp_sites: string;
   trail_accessibility: string;
   pets_allowed: boolean;
   link_of_info: string;
@@ -19,6 +20,8 @@ const HikeInfoPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const hike = location.state?.hike as Hike;
+
+  console.log(hike.camp_sites, hike.camp_sites.length)
 
   if (!hike) {
     return <p color="green">No hike selected. Please return home.</p>;
@@ -62,10 +65,13 @@ const HikeInfoPage = () => {
           padding: 2,
           color: 'white'}}>
             <p color="white">
+              <strong>Park: </strong> {hike.national_park} <br />
               <strong>Length: </strong> {hike.trail_length_miles} miles <br />
               <strong>Elevation: </strong>{hike.trail_elevation_feet} feet <br />
               <strong>Time: </strong>{hike.hiking_time_hours} hours <br />
-              <strong>Camping: </strong>{hike.camp_sites} <br />
+              <strong>Camping: </strong>{hike.camp_sites.length > 0
+                        ? hike.camp_sites 
+                        : "There is no camping available"}<br />
               <strong>Access: </strong>{hike.trail_accessibility} <br />
               <strong>Pets: </strong>{hike.pets_allowed 
                         ? 'Pets are welcome at this park.'
