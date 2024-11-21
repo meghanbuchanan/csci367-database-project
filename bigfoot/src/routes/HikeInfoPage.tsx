@@ -2,6 +2,7 @@ import { ArrowBack } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
 import { green } from '@mui/material/colors';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ParkImage from '../components/ParkImage';
 
 interface Hike {
   id: number;
@@ -41,46 +42,64 @@ const HikeInfoPage = () => {
           Back
         </Button>
         <Box 
-        sx={{ 
-          backgroundColor: 'rgba(0, 0, 0, 0.6)', 
-          display: 'flex', 
-          width: '75%',  
-          margin: '16px auto', 
-          borderRadius: '8px', 
-          justifyContent: 'center', 
-          marginTop: 2, 
-          padding: 2,
-          color: 'white'}}>
-            <h2>{hike.trail_name}</h2>
-        </Box>
-        <Box 
-        sx={{ 
-          backgroundColor: 'rgba(0, 0, 0, 0.6)', 
-          display: 'flex', 
-          width: '75%',  
-          margin: '16px auto', 
-          borderRadius: '8px', 
-          justifyContent: 'center', 
-          marginTop: 2, 
-          padding: 2,
-          color: 'white'}}>
-            <p color="white">
-              <strong>Park: </strong> {hike.national_park} <br />
-              <strong>Length: </strong> {hike.trail_length_miles} miles <br />
-              <strong>Elevation: </strong>{hike.trail_elevation_feet} feet <br />
-              <strong>Time: </strong>{hike.hiking_time_hours} hours <br />
-              <strong>Camping: </strong>{hike.camp_sites.length > 0
-                        ? hike.camp_sites 
-                        : "There is no camping available"}<br />
-              <strong>Access: </strong>{hike.trail_accessibility} <br />
-              <strong>Pets: </strong>{hike.pets_allowed 
-                        ? 'Pets are welcome at this park.'
-                        : 'Pets are not allowed at this park.'} <br />
-              {hike.link_of_info ? 
-                        (<a href={hike.link_of_info} target="_blank" rel="noopener noreferrer" style={{ color: 'green', textDecoration: 'underline' }}>Click here for more details</a>) 
-                        : ('No additional information available.')}
-            </p>
-        </Box>
+          sx={{ 
+            backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+            display: 'flex', 
+            width: '75%',  
+            margin: '16px auto', 
+            borderRadius: '8px', 
+            justifyContent: 'center', 
+            marginTop: 2, 
+            padding: 2,
+            color: 'white'}}>
+              <h2>{hike.trail_name}</h2>
+          </Box>
+          <Box
+            sx={{
+              backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+              display: 'flex',
+              flexDirection: 'column', // Stack content vertically
+              width: '75%',  
+              margin: '16px auto', 
+              borderRadius: '8px', 
+              marginTop: 2, 
+              padding: 2,
+              color: 'white'
+            }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center', 
+                width: '100%',
+              }} >
+              <ParkImage nationalPark={hike.national_park} />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                width: '100%',
+                color: 'white',
+              }}>
+              <p>
+                <strong>Park: </strong> {hike.national_park} <br />
+                <strong>Length: </strong> {hike.trail_length_miles} miles <br />
+                <strong>Elevation: </strong>{hike.trail_elevation_feet} feet <br />
+                <strong>Time: </strong>{hike.hiking_time_hours} hours <br />
+                <strong>Camping: </strong>{hike.camp_sites.length > 0
+                            ? hike.camp_sites 
+                            : "There is no camping available"}<br />
+                <strong>Access: </strong>{hike.trail_accessibility} <br />
+                <strong>Pets: </strong>{hike.pets_allowed 
+                            ? 'Pets are welcome at this park.'
+                            : 'Pets are not allowed at this park.'} <br />
+                {hike.link_of_info ? 
+                            (<a href={hike.link_of_info} target="_blank" rel="noopener noreferrer" style={{ color: 'green', textDecoration: 'underline' }}>Click here for more details</a>) 
+                            : ('No additional information available.')}
+              </p>
+            </Box>
+          </Box>
     </div>
   );
 };
