@@ -82,7 +82,7 @@ const SelectionPage = () => {
                         }}
                         onClick={handleModifyDetails}
                     >
-                        Modify Search Filters
+                        Change Search Filters
                 </Button>
             </Box>
             )}

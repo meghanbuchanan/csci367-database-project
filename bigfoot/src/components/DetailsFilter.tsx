@@ -171,7 +171,7 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                     }}
                     onClick={onSearch}
                 >
-                    Search
+                    Submit
                 </Button>
             </Box>
         </div>

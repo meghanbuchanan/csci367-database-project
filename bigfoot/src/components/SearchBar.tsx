@@ -14,6 +14,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setSearchQuery,
     onSearch,
 }) => {
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            onSearch();  // Trigger the search when Enter is pressed
+        }
+    };
+
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2}}>
             <TextField
@@ -21,6 +28,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 label="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
                 sx={{
                     width: '300px',
                     marginRight: 1,
@@ -45,6 +53,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 variant="contained"
                 color="primary"
                 onClick={onSearch}
+
                 sx={{
                     backgroundColor: green[500],
                     '&:hover': {

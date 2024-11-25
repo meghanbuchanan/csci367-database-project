@@ -9,7 +9,7 @@ const SearchTrailNamePage = () => {
     const handleSearch = async () => {
         const response = await fetch(`http://localhost:5001/names/search?name=${trailName}`);
         const data = await response.json();
-        navigate('/selection', { state: { results: data, searchType: 'name' } });
+        navigate('/selection', { state: { results: data, trailName, searchType: 'name' } });
     };
 
     return (
