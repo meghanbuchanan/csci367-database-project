@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
+import { green } from '@mui/material/colors';
 import { useNavigate, useLocation } from 'react-router-dom';
 import HikeCard from '../components/HikeCard';
 import SearchBar from '../components/SearchBar';
@@ -21,11 +22,25 @@ const SelectionPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [results, setResults] = useState<Hike[]>([]);
+    const [searchType, setSearchType] = useState('');
+
+    // These are the constants if it was a search by name
     const [trailName, setTrailName] = useState('');
-    
+
+
     useEffect(() => {
-        if (location.state && location.state.results) {
-            setResults(location.state.results);
+        if (location.state) {
+            if (location.state.results) {
+                setResults(location.state.results);
+            }
+
+            if (location.state.trailName) {
+                setTrailName(location.state.trailName);
+            }
+
+            if (location.state.searchType) {
+                setSearchType(location.state.searchType);
+            }
         }
     }, [location.state]);
 
@@ -36,19 +51,42 @@ const SelectionPage = () => {
         }
     };
 
-    const handleSearch = async () => {
+    const handleNameSearch = async () => {
         const response = await fetch(`http://localhost:5001/names/search?name=${trailName}`);
         const data = await response.json();
-        navigate('/selection', { state: { results: data } });
+        navigate('/selection', { state: { results: data, trailName, searchType: 'name' } });
+    };
+
+    const handleModifyDetails = async () => {
+        navigate(-1);
     };
 
     return (
         <div>
-            <SearchBar
-                searchQuery={trailName}
-                setSearchQuery={setTrailName}
-                onSearch={handleSearch}
-            />
+            {/* Conditionally render the components based on searchType */}
+            {searchType === 'name' && (
+                <SearchBar
+                    searchQuery={trailName}
+                    setSearchQuery={setTrailName}
+                    onSearch={handleNameSearch}
+                />
+            )}
+            {searchType === 'details' && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
+                    <Button
+                        variant="contained"
+                        sx={{
+                        backgroundColor: green[500],
+                        color: 'white',
+                        '&:hover': { backgroundColor: green[700] },
+                        }}
+                        onClick={handleModifyDetails}
+                    >
+                        Modify Search Filters
+                </Button>
+            </Box>
+            )}
+
             <Box sx={{ marginTop: 4, padding: 2 }}>
                 <Typography variant="h6" sx={{ color: 'green', fontWeight: 'bold' }}>
                     {results.length > 0 ? `${results.length} hike(s) found` : 'No hikes found. Try searching for another trail.'}
