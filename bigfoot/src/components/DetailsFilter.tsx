@@ -108,7 +108,7 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                         valueLabelDisplay="auto"
                         sx={{ color: green[500] }}
                     />
-                    <Typography sx={{ color: 'white' }}>Time: {timeRange[0]} - {timeRange[1]} hrs</Typography>
+                    <Typography sx={{ color: 'white' }}>Hike Duration: {timeRange[0]} - {timeRange[1]} hrs</Typography>
                 </Box>
             </Box>
 

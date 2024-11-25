@@ -86,7 +86,7 @@ const HikeInfoPage = () => {
                 <strong>Park: </strong> {hike.national_park} <br />
                 <strong>Length: </strong> {hike.trail_length_miles} miles <br />
                 <strong>Elevation: </strong>{hike.trail_elevation_feet} feet <br />
-                <strong>Time: </strong>{hike.hiking_time_hours} hours <br />
+                <strong>Hike Duration: </strong>{hike.hiking_time_hours} hours <br />
                 <strong>Camping: </strong>{hike.camp_sites.length > 0
                             ? hike.camp_sites 
                             : "There is no camping available"}<br />
