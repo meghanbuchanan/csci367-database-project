@@ -4,30 +4,35 @@ import { Box, Typography } from '@mui/material';
 interface HikeCardProps {
     id: number;
     trailName: string;
+    parkName: string;
+    trailElevation: number;
     trailLength: number;
     onClick: (id: number) => void;
 }
 
-const HikeCard: React.FC<HikeCardProps> = ({ id, trailName, trailLength, onClick }) => {
+const HikeCard: React.FC<HikeCardProps> = ({ id, trailName, parkName, trailElevation, trailLength, onClick }) => {
     return (
         <Box
             sx={{
                 backgroundColor: 'rgba(0, 0, 0, 0.6)',
                 color: 'white',
-                padding: '16px',
+                padding: '12px 16px',
                 borderRadius: '8px',
-                marginBottom: '16px',
-                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                marginBottom: '12px',
+                boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
                 cursor: 'pointer',
-                '&hover': { 
-                    transform: 'scale(1.02)',
-                    boxShadow: '0px 6px 12px rgba(0, 0, 0, 0.3)',
+                transition: 'transform 0.2s ease-in-out',
+                '&:hover': { 
+                    transform: 'scale(1.03)',
+                    boxShadow: '0px 6px 12px rgba(0, 0, 0, 0.25)',
                 },
             }}
             onClick={() => onClick(id)}
         >
-            <Typography variant="h6" gutterBottom>{trailName}</Typography>
-            <Typography variant="body2">Length: {trailLength} miles</Typography>
+            <Typography variant="h6" gutterBottom sx={{ fontSize: '1.1rem', fontWeight: 'bold' }}>{trailName}</Typography>
+            <Typography variant="body2" sx={{ fontSize: '0.9rem' }}>{parkName}</Typography>
+            <Typography variant="body2" sx={{ fontSize: '0.9rem' }}>Length: {trailLength} miles</Typography>
+            <Typography variant="body2" sx={{ fontSize: '0.9rem' }}>Elevation: {trailElevation} feet</Typography>
         </Box>
     );
 };
