@@ -40,7 +40,7 @@ services:
 
   frontend:
     build:
-      context: ./bigfoot
+      context: ./frontend
     ports:
       - "5173:5173"  # was "3000:3000"
     depends_on:
