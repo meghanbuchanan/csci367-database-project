@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy the frontend files to the container's working directory
 COPY . /app/
 
-# Install the dependencies for the React app
-RUN npm install
+# Install the dependencies for the React app and clear the cache
+RUN npm install && npm cache clean --force
 
 # Build the React app for production (optional, if you want to serve it statically)
 RUN npm run build
