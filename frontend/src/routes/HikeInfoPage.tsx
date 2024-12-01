@@ -76,7 +76,6 @@ const HikeInfoPage = () => {
             color: green[300],
             fontWeight: 'bold',
             fontSize: '2.5rem',  // Larger font size
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',  // Adding a subtle shadow for contrast
             letterSpacing: 1,  // Slightly increased letter spacing
           }}
         >
