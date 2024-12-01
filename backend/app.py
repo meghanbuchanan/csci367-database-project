@@ -5,7 +5,6 @@ from config import app_config
 import logging
 
 # Set up logging configuration
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
@@ -112,8 +111,6 @@ def search_details():
     # Execute the query
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)  # Use dictionary cursor to get results as dict
-    logger.debug(query)
-    logger.debug(params)
     cursor.execute(query, params)
     hikes = cursor.fetchall()
     cursor.close()
@@ -123,4 +120,4 @@ def search_details():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5001)
