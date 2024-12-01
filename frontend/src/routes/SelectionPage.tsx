@@ -99,6 +99,8 @@ const SelectionPage = () => {
                             key={hike.id}
                             id={hike.id}
                             trailName={hike.trail_name}
+                            parkName={hike.national_park}
+                            trailElevation={hike.trail_elevation_feet}
                             trailLength={hike.trail_length_miles}
                             onClick={handleHikeClick}
                         />
