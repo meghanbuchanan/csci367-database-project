@@ -36,6 +36,23 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
 
     return (
         <div>
+            {/* Submit Button */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
+                <Button
+                    variant="contained"
+                    sx={{
+                    backgroundColor: green[500],
+                    padding: '12px 24px',
+                    fontSize: '1.2rem',
+                    color: 'white',
+                    '&:hover': { backgroundColor: green[700] },
+                    }}
+                    onClick={onSearch}
+                >
+                    Submit
+                </Button>
+            </Box>
+
             {/*Park*/}
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
                 <FormControl sx={{ width: '300px', backgroundColor: 'rgba(0, 0, 0, 0.6)', borderRadius: '8px', padding: '16px' }}>
@@ -158,21 +175,6 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                         />
                     </RadioGroup>
                 </FormControl>
-            </Box>
-
-            {/* Submit Button */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
-                <Button
-                    variant="contained"
-                    sx={{
-                    backgroundColor: green[500],
-                    color: 'white',
-                    '&:hover': { backgroundColor: green[700] },
-                    }}
-                    onClick={onSearch}
-                >
-                    Submit
-                </Button>
             </Box>
         </div>
     );
