@@ -4,6 +4,7 @@ import { green } from '@mui/material/colors';
 import { useNavigate, useLocation } from 'react-router-dom';
 import HikeCard from '../components/HikeCard';
 import SearchBar from '../components/SearchBar';
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 interface Hike {
     id: number;
@@ -80,9 +81,10 @@ const SelectionPage = () => {
                         color: 'white',
                         '&:hover': { backgroundColor: green[700] },
                         }}
+                        startIcon={<FilterListIcon />}
                         onClick={handleModifyDetails}
                     >
-                        Change Search Filters
+                        Filters
                 </Button>
             </Box>
             )}

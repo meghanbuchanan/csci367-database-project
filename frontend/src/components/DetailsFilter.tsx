@@ -36,23 +36,6 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
 
     return (
         <div>
-            {/* Submit Button */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
-                <Button
-                    variant="contained"
-                    sx={{
-                    backgroundColor: green[500],
-                    padding: '12px 24px',
-                    fontSize: '1.2rem',
-                    color: 'white',
-                    '&:hover': { backgroundColor: green[700] },
-                    }}
-                    onClick={onSearch}
-                >
-                    Submit
-                </Button>
-            </Box>
-
             {/*Park*/}
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
                 <FormControl sx={{ width: '300px', backgroundColor: 'rgba(0, 0, 0, 0.6)', borderRadius: '8px', padding: '16px' }}>
@@ -97,9 +80,8 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                         valueLabelDisplay="auto"
                         sx={{ color: green[500] }}
                     />
-                    <Typography sx={{ color: 'white' }}>Length: {lengthRange[0]} - {lengthRange[1]} mi</Typography>
+                    <Typography sx={{ color: 'white', fontWeight: 'bold' }}>Length: {lengthRange[0]} - {lengthRange[1]} mi</Typography>
                 </Box>
-            
                 {/* Elevation Slider */}
                 <Box sx={{ width: '200px', backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '16px', borderRadius: '8px' }}>
                     <Slider
@@ -111,9 +93,8 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                         valueLabelDisplay="auto"
                         sx={{ color: green[500] }}
                     />
-                    <Typography sx={{ color: 'white' }}>Elevation: {elevationRange[0]} - {elevationRange[1]} ft</Typography>
+                    <Typography sx={{ color: 'white', fontWeight: 'bold' }}>Elevation: {elevationRange[0]} - {elevationRange[1]} ft</Typography>
                 </Box>
-
                 {/* Time Slider */}
                 <Box sx={{ width: '200px', backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '16px', borderRadius: '8px' }}>
                     <Slider
@@ -125,56 +106,78 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                         valueLabelDisplay="auto"
                         sx={{ color: green[500] }}
                     />
-                    <Typography sx={{ color: 'white' }}>Hike Duration: {timeRange[0]} - {timeRange[1]} hrs</Typography>
+                    <Typography sx={{ color: 'white', fontWeight: 'bold' }}>Hike Duration: {timeRange[0]} - {timeRange[1]} hrs</Typography>
                 </Box>
             </Box>
 
-            {/* Pets */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                <FormControl sx={{ width: '300px', backgroundColor: 'rgba(0, 0, 0, 0.6)', borderRadius: '8px', padding: '16px' }}>
-                    <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '8px' }}>Dogs Allowed</Typography>
-                    <RadioGroup row value={pets} onChange={(e) => setPets(e.target.value)}>
-                        <FormControlLabel 
-                            value="true" 
-                            control={<Radio sx={{ color: 'white' }} />} 
-                            label="Yes" 
-                        />
-                        <FormControlLabel 
-                            value="false" 
-                            control={<Radio sx={{ color: 'white' }} />} 
-                            label="No" 
-                        />
-                        <FormControlLabel 
-                            value="all" 
-                            control={<Radio sx={{ color: 'white' }} />} 
-                            label="No Preference" 
-                        />
-                    </RadioGroup>
-                </FormControl>
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 1, gap: 1.5 }}>
+                {/* Pets */}
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 1 }}>
+                    <FormControl sx={{ width: '300px', backgroundColor: 'rgba(0, 0, 0, 0.6)', borderRadius: '8px', padding: '16px' }}>
+                        <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '8px' }}>Dogs Allowed</Typography>
+                        <RadioGroup row value={pets} onChange={(e) => setPets(e.target.value)}>
+                            <FormControlLabel 
+                                value="true" 
+                                control={<Radio sx={{ color: 'white' }} />} 
+                                label="Yes" 
+                            />
+                            <FormControlLabel 
+                                value="false" 
+                                control={<Radio sx={{ color: 'white' }} />} 
+                                label="No" 
+                            />
+                            <FormControlLabel 
+                                value="all" 
+                                control={<Radio sx={{ color: 'white' }} />} 
+                                label="No Preference" 
+                            />
+                        </RadioGroup>
+                    </FormControl>
+                </Box>
+                {/* Camping */}
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 1 }}>
+                    <FormControl sx={{ width: '300px', backgroundColor: 'rgba(0, 0, 0, 0.6)', borderRadius: '8px', padding: '16px' }}>
+                        <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '8px' }}>Camping Available</Typography>
+                        <RadioGroup row value={camping} onChange={(e) => setCamping(e.target.value)}>
+                            <FormControlLabel 
+                                value="true" 
+                                control={<Radio sx={{ color: 'white' }} />} 
+                                label="Yes" 
+                            />
+                            <FormControlLabel 
+                                value="false" 
+                                control={<Radio sx={{ color: 'white' }} />} 
+                                label="No" 
+                            />
+                            <FormControlLabel 
+                                value="all" 
+                                control={<Radio sx={{ color: 'white' }} />} 
+                                label="No Preference" 
+                            />
+                        </RadioGroup>
+                    </FormControl>
+                </Box>
             </Box>
-
-            {/* Camping */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                <FormControl sx={{ width: '300px', backgroundColor: 'rgba(0, 0, 0, 0.6)', borderRadius: '8px', padding: '16px' }}>
-                    <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '8px' }}>Camping Available</Typography>
-                    <RadioGroup row value={camping} onChange={(e) => setCamping(e.target.value)}>
-                        <FormControlLabel 
-                            value="true" 
-                            control={<Radio sx={{ color: 'white' }} />} 
-                            label="Yes" 
-                        />
-                        <FormControlLabel 
-                            value="false" 
-                            control={<Radio sx={{ color: 'white' }} />} 
-                            label="No" 
-                        />
-                        <FormControlLabel 
-                            value="all" 
-                            control={<Radio sx={{ color: 'white' }} />} 
-                            label="No Preference" 
-                        />
-                    </RadioGroup>
-                </FormControl>
+             {/* Submit Button */}
+             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+                <Button
+                    variant="contained"
+                    sx={{
+                    backgroundColor: green[500],
+                    padding: '6px 20px',
+                    fontSize: '2rem',
+                    color: 'white',
+                    width: '300px',
+                    height: 'auto',
+                    lineHeight: '1.2', 
+                    fontFamily: 'Poppins, sans-serif',
+                    fontWeight: 'bold',
+                    '&:hover': { backgroundColor: green[700] },
+                    }}
+                    onClick={onSearch}
+                >
+                    Submit
+                </Button>
             </Box>
         </div>
     );

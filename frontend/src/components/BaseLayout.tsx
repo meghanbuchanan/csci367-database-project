@@ -34,7 +34,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
           textAlign: 'center', 
         }}
       >
-        <Typography variant="h2" color="white">
+        <Typography variant="h2" color="white" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold' }}>
           {title}
         </Typography>
         <Button
