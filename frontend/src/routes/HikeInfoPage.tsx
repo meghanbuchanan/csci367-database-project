@@ -150,22 +150,31 @@ const HikeInfoPage = () => {
             >
               Camping & Accessibility
             </Typography>
-            {hike.camp_sites.length > 0 ? (
-              <ul style={{ color: grey[200], paddingLeft: '1.5rem', marginTop: 0 }}>
-                {JSON.parse(hike.camp_sites).map((camp: string, index: number) => (
-                  <li key={index} style={{ marginBottom: '0.1rem' }}>
-                    {camp}
-                  </li>
-                ))}
-              </ul>
+            {JSON.parse(hike.camp_sites).length > 0 ? (
+              <>
+              <Typography
+                variant="body1"
+                sx={{ display: 'flex', alignItems: 'center', color: grey[200] , mb: 1}}
+              >
+                Campsites:
+              </Typography>
+                <ul style={{ color: grey[200], paddingLeft: '1.5rem', marginTop: 0 }}>
+                  {JSON.parse(hike.camp_sites).map((camp: string, index: number) => (
+                    <li key={index} style={{ marginBottom: '0.1rem' }}>
+                      {camp}
+                    </li>
+                  ))}
+                </ul>
+              </>
             ) : (
               <Typography
                 variant="body1"
-                sx={{ display: 'flex', alignItems: 'center', color: grey[200], mb: 1 }}
+                sx={{ display: 'flex', alignItems: 'center', color: grey[200], mb: 1, marginBottom: '12px' }}
               >
                 No camping available
               </Typography>
             )}
+
             <Typography
               variant="body1"
               sx={{ display: 'flex', alignItems: 'center', color: grey[200], mb: 1 }}
