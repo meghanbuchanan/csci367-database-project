@@ -1,6 +1,9 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
+/**
+ * Props for the HikeCard component.
+ */
 interface HikeCardProps {
     id: number;
     trailName: string;
@@ -10,6 +13,17 @@ interface HikeCardProps {
     onClick: (id: number) => void;
 }
 
+/**
+ * A functional React component that displays basic details about a hike.
+ * Provides an interactive card UI that highlights on hover and triggers a callback when clicked.
+ * 
+ * @param id - Unique identifier for the hike.
+ * @param trailName - Name of the trail.
+ * @param parkName - Name of the national park.
+ * @param trailElevation - Elevation of the trail in feet.
+ * @param trailLength - Length of the trail in miles.
+ * @param onClick - Callback function to handle click events.
+ */
 const HikeCard: React.FC<HikeCardProps> = ({ id, trailName, parkName, trailElevation, trailLength, onClick }) => {
     return (
         <Box
@@ -29,10 +43,38 @@ const HikeCard: React.FC<HikeCardProps> = ({ id, trailName, parkName, trailEleva
             }}
             onClick={() => onClick(id)}
         >
-            <Typography variant="h6" gutterBottom sx={{ fontSize: '1.1rem', fontWeight: 'bold' }}>{trailName}</Typography>
-            <Typography variant="body2" sx={{ fontSize: '0.9rem' }}>{parkName}</Typography>
-            <Typography variant="body2" sx={{ fontSize: '0.9rem' }}>Length: {trailLength} miles</Typography>
-            <Typography variant="body2" sx={{ fontSize: '0.9rem' }}>Elevation: {trailElevation} feet</Typography>
+            {/* Trail Name */}
+            <Typography 
+                variant="h6" 
+                gutterBottom 
+                sx={{ fontSize: '1.1rem', fontWeight: 'bold' }}
+            >
+                {trailName}
+            </Typography>
+
+            {/* Park Name */}
+            <Typography 
+                variant="body2" 
+                sx={{ fontSize: '0.9rem' }}
+            >
+                {parkName}
+            </Typography>
+
+            {/* Trail Length */}
+            <Typography 
+                variant="body2" 
+                sx={{ fontSize: '0.9rem' }}
+            >
+                Length: {trailLength} miles
+            </Typography>
+
+            {/* Trail Elevation */}
+            <Typography 
+                variant="body2" 
+                sx={{ fontSize: '0.9rem' }}
+            >
+                Elevation: {trailElevation} feet
+            </Typography>
         </Box>
     );
 };

@@ -2,6 +2,9 @@ import React from 'react';
 import { Box, FormControl, Typography, Slider, RadioGroup, Radio, FormControlLabel, Button } from '@mui/material';
 import { green } from '@mui/material/colors';
 
+/**
+ * Props for the DetailsFilter component.
+ */
 interface DetailsFilterProps {
     selectedPark: string;
     setSelectedPark: (value: string) => void;
@@ -18,6 +21,14 @@ interface DetailsFilterProps {
     onSearch: () => void;
 }
 
+/**
+ * A filter component for narrowing down hike options by park, trail characteristics, and additional amenities.
+ * 
+ * This component includes sliders for length, elevation, and time; radio buttons for pets and camping preferences;
+ * and a park selector. All filters are managed through controlled props.
+ * 
+ * @param {DetailsFilterProps} props - The props for the component.
+ */
 const DetailsFilter: React.FC<DetailsFilterProps> = ({
     selectedPark,
     setSelectedPark,
@@ -36,7 +47,7 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
 
     return (
         <div>
-            {/*Park*/}
+            {/* Park Selector */}
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
                 <FormControl sx={{ width: '300px', backgroundColor: 'rgba(0, 0, 0, 0.6)', borderRadius: '8px', padding: '16px' }}>
                     <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '8px' }}>
@@ -67,7 +78,7 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                 </FormControl>
             </Box>
 
-            {/* Length, Elevation, Time */}
+            {/* Sliders for Length, Elevation, Time */}
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2, gap: 1.5 }}>
                 {/* Length Slider */}
                 <Box sx={{ width: '200px', backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: '16px', borderRadius: '8px' }}>
@@ -110,6 +121,7 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                 </Box>
             </Box>
 
+            {/* Pets and Camping Filters */}
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 1, gap: 1.5 }}>
                 {/* Pets */}
                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 1 }}>
@@ -158,6 +170,7 @@ const DetailsFilter: React.FC<DetailsFilterProps> = ({
                     </FormControl>
                 </Box>
             </Box>
+
              {/* Submit Button */}
              <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
                 <Button

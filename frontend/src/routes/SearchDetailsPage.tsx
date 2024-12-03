@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DetailsFilter from '../components/DetailsFilter';
 
+/**
+ * The SearchDetailsPage component allows users to filter hikes based on various criteria such as 
+ * park, trail length, elevation, time, pet-friendly status, and camping availability.
+ * It handles the user's input, constructs a query string, and performs a search request to retrieve 
+ * relevant trail details from the backend.
+ */
 const SearchDetailsPage = () => {
   const navigate = useNavigate();
   const [selectedPark, setSelectedPark] = useState<string>('all');
@@ -11,6 +17,11 @@ const SearchDetailsPage = () => {
   const [pets, setPets] = useState<string>('all'); 
   const [camping, setCamping] = useState<string>('all'); 
 
+  /**
+   * Handles the search functionality by constructing a query string from the selected filters
+   * and sending a request to the backend. After the search results are retrieved, it navigates
+   * to the results page with the data.
+   */
   const handleSearch = async () => {
     const queryParams = new URLSearchParams();
 
@@ -34,14 +45,13 @@ const SearchDetailsPage = () => {
     }
 
     if (pets !== 'all') {
-      queryParams.append("pets", pets); // Only append if not "all"
+      queryParams.append("pets", pets);
     }
 
     if (camping !== 'all') {
-      queryParams.append("camping", camping); // Only append if not "all"
+      queryParams.append("camping", camping);
     }
 
-    console.log(queryParams.toString());
     const response = await fetch(`http://localhost:5001/details/search?${queryParams.toString()}`);
     const data = await response.json();
     navigate('/selection', { state: { results: data, searchType: 'details' } });

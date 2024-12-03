@@ -9,9 +9,22 @@ interface BaseLayoutProps {
   children: React.ReactNode;
 }
 
+/**
+ * BaseLayout Component
+ * 
+ * A reusable layout component that provides a consistent structure for pages in the app. 
+ * It includes a header with a title, a home button, and a main content area styled with a background image.
+ * 
+ * Props:
+ * - `title`: The title displayed in the header.
+ * - `children`: The content to render inside the main content area.
+ */
 const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
   const navigate = useNavigate();
 
+  /**
+   * Handles navigation to the home page when the "Home" button is clicked.
+   */
   const handleHome = () => {
     navigate('/');
   };
@@ -25,8 +38,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
         width: '100vw',   
       }}
     >
+
+      {/* Header Section */}
       <Box
-        //Top bar
         sx={{
           backgroundColor: green[900], 
           padding: '16px',
@@ -34,6 +48,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
           textAlign: 'center', 
         }}
       >
+        {/* Bigfoot Image */}
         <img
           src="/squatting_bigfoot.png"
           alt="Bigfoot"
@@ -47,9 +62,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
             borderRadius: '8px',
           }}
         />
+
+        {/* Title */}
         <Typography variant="h2" color="white" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold' }}>
           {title}
         </Typography>
+
+        {/* Home Button */}
         <Button
           sx={{ backgroundColor: green[500], '&:hover': { backgroundColor: green[700] }, color: 'white' }}
           startIcon={<Home />}
@@ -58,6 +77,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
           Home
         </Button>
       </Box>
+
+      {/* Main Content Area */}
       <Box
         sx={{
           backgroundImage: 'url(/url2.jpeg)',

@@ -6,6 +6,17 @@ import SearchTrailNamePage from './routes/SearchTrailNamePage';
 import SelectionPage from './routes/SelectionPage';
 import HikeInfoPage from './routes/HikeInfoPage';
 
+/**
+ * The main application component that sets up routing for Bigfoot's Guide to WA Parks.
+ * This component uses React Router for navigation and organizes pages within a base layout.
+ *
+ * Pages include:
+ * - HomePage: The landing page of the application.
+ * - SearchDetailsPage: A page for searching hikes based on detail filters.
+ * - SearchTrailNamePage: A page for searching hikes by trail name.
+ * - SelectionPage: A general selection page for displaying search results.
+ * - HikeInfoPage: A page displaying detailed information about a specific hike.
+ */
 function App() {
   return (
     <BrowserRouter>

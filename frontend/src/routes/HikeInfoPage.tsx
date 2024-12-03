@@ -4,6 +4,7 @@ import { green, grey } from '@mui/material/colors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ParkImage from '../components/ParkImage';
 
+// Define structure of Hike data
 interface Hike {
   id: number;
   trail_name: string;
@@ -17,11 +18,19 @@ interface Hike {
   link_of_info: string;
 }
 
+/**
+ * HikeInfoPage displays detailed information about a selected hike.
+ * It includes information such as trail name, national park, trail length,
+ * camping availability, accessibility, and pets allowed.
+ */
 const HikeInfoPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Extract the hike object from the location state (passed from the previous page)
   const hike = location.state?.hike as Hike;
 
+  // If no hike is selected, display a message and return a fallback view
   if (!hike) {
     return (
       <Box sx={{ textAlign: 'center', marginTop: 4, color: green[500] }}>
@@ -30,6 +39,9 @@ const HikeInfoPage = () => {
     );
   }
 
+  /**
+   * Handles the action of navigating back to the previous page
+   */
   const handleBack = () => {
     navigate(-1);
   };
@@ -56,7 +68,7 @@ const HikeInfoPage = () => {
         Back
       </Button>
 
-      {/* Main Content */}
+      {/* Main Content Container */}
       <Paper
         elevation={3}
         sx={{
@@ -75,22 +87,20 @@ const HikeInfoPage = () => {
           sx={{
             color: green[300],
             fontWeight: 'bold',
-            fontSize: '2.5rem',  // Larger font size
-            letterSpacing: 1,  // Slightly increased letter spacing
+            fontSize: '2.5rem',
+            letterSpacing: 1,
           }}
         >
           {hike.trail_name}
         </Typography>
 
         <Grid container spacing={4}>
+
           {/* Image Section */}
           <Grid item xs={12} md={6}>
-            <Box
-              sx={{
-                textAlign: 'center',
-                marginBottom: 2,
-              }}
-            >
+            <Box sx={{ textAlign: 'center', marginBottom: 2 }}>
+
+              {/* Park image corresponding to the national park */}
               <ParkImage nationalPark={hike.national_park} />
               <Typography
                 variant="caption"
@@ -107,6 +117,7 @@ const HikeInfoPage = () => {
 
           {/* Details Section */}
           <Grid item xs={12} md={6}>
+
             {/* Trail Info */}
             <Typography
               variant="h5"
@@ -115,6 +126,8 @@ const HikeInfoPage = () => {
             >
               Trail Info
             </Typography>
+
+            {/* Render trail information */}
             <Typography
               variant="body1"
               sx={{ display: 'flex', alignItems: 'center', color: grey[200], mb: 1 }}
@@ -142,7 +155,7 @@ const HikeInfoPage = () => {
 
             <Divider sx={{ my: 2, backgroundColor: grey[500] }} />
 
-            {/* Camping and Accessibility */}
+            {/* Camping and Accessibility Info */}
             <Typography
               variant="h5"
               gutterBottom
@@ -150,6 +163,8 @@ const HikeInfoPage = () => {
             >
               Camping & Accessibility
             </Typography>
+
+            {/* Check if campsites exist, and display them */}
             {JSON.parse(hike.camp_sites).length > 0 ? (
               <>
               <Typography
@@ -175,6 +190,7 @@ const HikeInfoPage = () => {
               </Typography>
             )}
 
+            {/* Accessibility details */}
             <Typography
               variant="body1"
               sx={{ display: 'flex', alignItems: 'center', color: grey[200], mb: 1 }}
@@ -184,7 +200,7 @@ const HikeInfoPage = () => {
 
             <Divider sx={{ my: 2, backgroundColor: grey[500] }} />
 
-            {/* Additional Details */}
+            {/* Additional Details Section */}
             <Typography
               variant="h5"
               gutterBottom
@@ -192,6 +208,8 @@ const HikeInfoPage = () => {
             >
               Additional Details
             </Typography>
+
+            {/* Display pets allowed info */}
             <Typography
               variant="body1"
               sx={{ display: 'flex', alignItems: 'center', color: grey[200], mb: 1 }}
@@ -199,6 +217,8 @@ const HikeInfoPage = () => {
               <Pets sx={{ marginRight: 1 }} />
               {hike.pets_allowed ? 'Dogs are welcome' : 'No dogs allowed'}
             </Typography>
+
+            {/* Link to more details */}
             {hike.link_of_info && (
               <Typography variant="body1" gutterBottom>
                 <a
