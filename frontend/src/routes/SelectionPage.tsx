@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { green } from '@mui/material/colors';
 import { useNavigate, useLocation } from 'react-router-dom';
 import HikeCard from '../components/HikeCard';
@@ -108,19 +108,7 @@ const SelectionPage = () => {
             )}
 
             <Box sx={{ marginTop: 4, padding: 2, justifyContent: 'center', }}>
-                <Typography 
-                    variant="h6" 
-                    sx={{ 
-                        color: '#2E8B57', 
-                        fontWeight: 'bold', 
-                        justifyContent: 'center', 
-                        display: 'flex',
-                    }}
-                >
-                    {results.length > 0 ? `${results.length} hike(s) found` : 'No hikes found. Try searching for another trail.'}
-                </Typography>
-
-                {/* Display the hike cards or a fallback image if no results */}
+                {/* Show hikes or fallback image */}
                 {results.length > 0 ? (
                     results.map((hike) => (
                         <HikeCard
@@ -145,9 +133,13 @@ const SelectionPage = () => {
                     >
                         {/* Show a fallback image when no hikes are found */}
                         <img
-                            src="log_bigfoot.png"
+                            src="no_hike_found.png"
                             alt="No hikes found"
-                            style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
+                            style={{ maxWidth: '100%',
+                                height: '500px',
+                                width: '700px',
+                                borderRadius: '8px',
+                            }}
                         />
                     </Box>
                 )}

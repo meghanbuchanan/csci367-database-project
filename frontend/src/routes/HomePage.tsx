@@ -83,13 +83,26 @@ const HomePage = () => {
 
       {/* Image of Bigfoot at the bottom right of the page */}
       <img
-        src="bigfoot.png"
+        src="searchTrail.png"
         alt="Bigfoot"
         style={{
           position: 'absolute', 
           bottom: '10px', 
-          right: '10px',
-          width: '300px',
+          left: '10px',
+          width: '425px',
+          height: '400px',
+          objectFit: 'cover',
+          borderRadius: '8px',
+        }}
+      />
+      <img
+        src="searchDetails.png"
+        alt="Bigfoot"
+        style={{
+          position: 'absolute', 
+          bottom: '275px', 
+          right: '1px',
+          width: '450px',
           height: '400px',
           objectFit: 'cover',
           borderRadius: '8px',

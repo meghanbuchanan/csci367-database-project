@@ -48,22 +48,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
           textAlign: 'center', 
         }}
       >
-        {/* Bigfoot Image */}
-        <img
-          src="/squatting_bigfoot.png"
-          alt="Bigfoot"
-          style={{
-            position: 'absolute', 
-            top: '8px', 
-            left: '1px',
-            width: '100px', 
-            height: '100px', 
-            objectFit: 'cover',
-            borderRadius: '8px',
-          }}
-        />
-
-        {/* Title */}
         <Typography variant="h2" color="white" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold' }}>
           {title}
         </Typography>
