@@ -103,7 +103,7 @@ const HomePage = () => {
           bottom: '275px', 
           right: '1px',
           width: '450px',
-          height: '400px',
+          height: '375px',
           objectFit: 'cover',
           borderRadius: '8px',
         }}
