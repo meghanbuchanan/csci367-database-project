@@ -3,10 +3,18 @@ import pandas as pd
 import time
 from config import Config
 
-# Wait for MySQL to be ready
 def wait_for_mysql():
+    """
+    Waits for the MySQL database to be ready before proceeding.
+
+    Continuously attempts to connect to the MySQL database specified in the 
+    configuration. If the connection fails, the function retries after a 
+    5-second delay. Once the database is ready, it prints a confirmation message.
+    """
+
     while True:
         try:
+            # Attempt to establish a connection
             conn = mysql.connector.connect(
                 host=Config.MYSQL_HOST,
                 user=Config.MYSQL_USER,
@@ -20,10 +28,9 @@ def wait_for_mysql():
             print(f"MySQL not ready: {err}")
             time.sleep(5)
 
-# Read the Excel file
 df = pd.read_excel('/app/data/hiking_data.xlsx')
 
-# Ensure MySQL is ready before continuing
+# Wait until MySQL is ready before inserting data
 wait_for_mysql()
 
 try:

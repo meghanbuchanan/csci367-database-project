@@ -8,7 +8,7 @@ services:
       - "4040:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./backend/data/init.sql:/docker-entrypoint-initdb.d/init.sql  # Run init.sql to create the DB and table
+      - ./backend/data/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
     healthcheck:
@@ -27,12 +27,12 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_DB=hiking_db
     ports:
-      - "5001:5000"  # was "5000:5000"
+      - "5001:5000"
     depends_on:
       mysql:
-        condition: service_healthy  # Ensure MySQL is healthy before starting the backend
+        condition: service_healthy
     volumes:
-      - ./backend/data:/app/data  # Mount entire data folder
+      - ./backend/data:/app/data
     command: >
       bash -c "python /app/insert_data.py && flask run --host=0.0.0.0"  # Run insert_data.py before starting Flask
     networks:
@@ -42,7 +42,7 @@ services:
     build:
       context: ./frontend
     ports:
-      - "5173:5173"  # was "3000:3000"
+      - "5173:5173"
     depends_on:
       - backend
     networks:
