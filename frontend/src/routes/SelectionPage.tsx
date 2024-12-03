@@ -89,12 +89,12 @@ const SelectionPage = () => {
             </Box>
             )}
 
-            <Box sx={{ marginTop: 4, padding: 2 }}>
-                <Typography variant="h6" sx={{ color: 'green', fontWeight: 'bold' }}>
+            <Box sx={{ marginTop: 4, padding: 2, justifyContent: 'center', }}>
+                <Typography variant="h6" sx={{ color: 'green', fontWeight: 'bold', justifyContent: 'center', display: 'flex' }}>
                     {results.length > 0 ? `${results.length} hike(s) found` : 'No hikes found. Try searching for another trail.'}
                 </Typography>
 
-                {/* Show hikes or no result message */}
+                {/* Show hikes or fallback image */}
                 {results.length > 0 ? (
                     results.map((hike) => (
                         <HikeCard
@@ -107,7 +107,23 @@ const SelectionPage = () => {
                             onClick={handleHikeClick}
                         />
                     ))
-                ) : null}
+                ) : (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginTop: 4,
+                        }}
+                    >
+                        <img
+                            src="log_bigfoot.png"
+                            alt="No hikes found"
+                            style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
+                        />
+                    </Box>
+                )}
             </Box>
         </div>
     );

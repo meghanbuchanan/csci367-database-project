@@ -9,7 +9,7 @@ import HikeInfoPage from './routes/HikeInfoPage';
 function App() {
   return (
     <BrowserRouter>
-      <BaseLayout title="Bigfoot's guide to WA parks">
+      <BaseLayout title="Bigfoot's Guide to WA Parks">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/details" element={<SearchDetailsPage />} />

@@ -64,6 +64,19 @@ const HomePage = () => {
           Trail Name
         </Button>
       </Box>
+      <img
+        src="bigfoot.png"
+        alt="Bigfoot"
+        style={{
+          position: 'absolute', 
+          bottom: '10px', 
+          right: '10px',
+          width: '300px',
+          height: '400px',
+          objectFit: 'cover',
+          borderRadius: '8px',
+        }}
+      />
     </div>
   );
 };
