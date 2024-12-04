@@ -101,8 +101,8 @@ const HomePage = () => {
           position: 'absolute', 
           bottom: '0%', 
           left: '5%',
-          width: '450px',
-          height: '400px',
+          width: 'auto',
+          height: '60%',
           objectFit: 'cover',
         }}
       />
@@ -113,10 +113,9 @@ const HomePage = () => {
           position: 'absolute', 
           top: '10%', 
           right: '0%',
-          width: '475px',
-          height: '375px',
+          width: 'auto',
+          height: '50%',
           objectFit: 'cover',
-          borderRadius: '8px',
         }}
       />
     </div>
