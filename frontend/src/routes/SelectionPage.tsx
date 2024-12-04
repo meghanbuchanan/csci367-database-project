@@ -139,8 +139,8 @@ const SelectionPage = () => {
                         alt="No hikes found"
                         style={{ 
                             position: 'absolute',
-                            bottom: '0px', 
-                            left: '490px',
+                            bottom: '0%', 
+                            left: '35%',
                             height: '75%',
                             width: 'auto',
                             objectFit: 'cover',
