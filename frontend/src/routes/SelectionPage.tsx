@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { green } from '@mui/material/colors';
 import { useNavigate, useLocation } from 'react-router-dom';
 import HikeCard from '../components/HikeCard';
@@ -110,17 +110,29 @@ const SelectionPage = () => {
             <Box sx={{ marginTop: 4, padding: 2, justifyContent: 'center', }}>
                 {/* Show hikes or fallback image */}
                 {results.length > 0 ? (
-                    results.map((hike) => (
-                        <HikeCard
-                            key={hike.id}
-                            id={hike.id}
-                            trailName={hike.trail_name}
-                            parkName={hike.national_park}
-                            trailElevation={hike.trail_elevation_feet}
-                            trailLength={hike.trail_length_miles}
-                            onClick={handleHikeClick}
-                        />
-                    ))
+                    <>
+                        <Typography 
+                            variant="h6" 
+                            sx={{ 
+                                marginBottom: 2, 
+                                color: 'black', 
+                                fontWeight: 'bold' 
+                            }}
+                        >
+                            {`${results.length} Hike(s) found`}
+                        </Typography>
+                        {results.map((hike) => (
+                            <HikeCard
+                                key={hike.id}
+                                id={hike.id}
+                                trailName={hike.trail_name}
+                                parkName={hike.national_park}
+                                trailElevation={hike.trail_elevation_feet}
+                                trailLength={hike.trail_length_miles}
+                                onClick={handleHikeClick}
+                            />
+                        ))}
+                    </>
                 ) : (
                     <img
                         src="no_hike_found.png"
