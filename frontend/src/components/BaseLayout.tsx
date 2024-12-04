@@ -46,15 +46,22 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ title, children }) => {
           padding: '16px',
           flexShrink: 0,
           textAlign: 'center', 
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
         }}
       >
-        <Typography variant="h2" color="white" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold' }}>
+        <Typography variant="h2" color="white" sx={{ fontFamily: 'Freckle Face, sans-serif', fontWeight: 'bold' }}>
           {title}
         </Typography>
 
         {/* Home Button */}
         <Button
-          sx={{ backgroundColor: green[500], '&:hover': { backgroundColor: green[700] }, color: 'white' }}
+          sx={{ 
+            backgroundColor: green[500], 
+            '&:hover': { backgroundColor: green[700] }, 
+            color: 'white',
+            mt: '8px',
+            px: '16px',
+          }}
           startIcon={<Home />}
           onClick={handleHome}
         >

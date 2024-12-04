@@ -2,6 +2,7 @@ import { Typography, Box, Button } from '@mui/material';
 import { green } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 
+
 /**
  * HomePage is the main landing page of the application where users can select 
  * how they would like to search for hikes. It provides options to search by 
@@ -27,7 +28,12 @@ const HomePage = () => {
   return (
     <div>
       {/* Heading for the page */}
-      <Typography variant="h4" align="center" color="black" gutterBottom>
+      <Typography 
+        variant="h4" 
+        align="center" 
+        color="black" 
+        sx={{ fontFamily: 'Montserrat', fontWeight: 'bold', mb: 4 }}
+      >
         Search Hikes by:
       </Typography>
 
@@ -40,6 +46,7 @@ const HomePage = () => {
             backgroundColor: green[500],
             '&:hover': {
               backgroundColor: green[700],
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)'
             },
             position: 'absolute',
             zIndex: 10,
@@ -48,8 +55,10 @@ const HomePage = () => {
             transform: 'translate(-50%, -50%)',
             padding: '12px 24px',
             fontSize: '3rem',
+            fontFamily: 'Montserrat',
             width: '500px',
-            height: '150px',
+            height: '125px',
+            borderRadius: '12px',
           }}
         >
           Trail Details
@@ -65,6 +74,7 @@ const HomePage = () => {
             backgroundColor: green[500],
             '&:hover': {
               backgroundColor: green[700],
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)'
             },
             position: 'absolute',
             zIndex: 10,
@@ -73,26 +83,27 @@ const HomePage = () => {
             transform: 'translate(-50%, -50%)',
             padding: '12px 24px',
             fontSize: '3rem',
-            width: '500px',
-            height: '150px',
+            fontFamily: 'Montserrat',
+            width: '475px',
+            height: '125px',
+            borderRadius: '12px',
           }}
         >
           Trail Name
         </Button>
       </Box>
 
-      {/* Image of Bigfoot at the bottom right of the page */}
+      {/* Images of Bigfoot */}
       <img
         src="searchTrail.png"
         alt="Bigfoot"
         style={{
           position: 'absolute', 
-          bottom: '10px', 
-          left: '10px',
-          width: '425px',
+          bottom: '0px', 
+          left: '40px',
+          width: '450px',
           height: '400px',
           objectFit: 'cover',
-          borderRadius: '8px',
         }}
       />
       <img
@@ -100,9 +111,9 @@ const HomePage = () => {
         alt="Bigfoot"
         style={{
           position: 'absolute', 
-          bottom: '275px', 
-          right: '1px',
-          width: '450px',
+          bottom: '300px', 
+          right: '0px',
+          width: '475px',
           height: '375px',
           objectFit: 'cover',
           borderRadius: '8px',

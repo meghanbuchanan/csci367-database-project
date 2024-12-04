@@ -122,26 +122,18 @@ const SelectionPage = () => {
                         />
                     ))
                 ) : (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginTop: 4,
+                    <img
+                        src="no_hike_found.png"
+                        alt="No hikes found"
+                        style={{ 
+                            position: 'absolute',
+                            bottom: '0px', 
+                            left: '490px',
+                            height: '75%',
+                            width: 'auto',
+                            objectFit: 'cover',
                         }}
-                    >
-                        {/* Show a fallback image when no hikes are found */}
-                        <img
-                            src="no_hike_found.png"
-                            alt="No hikes found"
-                            style={{ maxWidth: '100%',
-                                height: '500px',
-                                width: '700px',
-                                borderRadius: '8px',
-                            }}
-                        />
-                    </Box>
+                    />
                 )}
             </Box>
         </div>
