@@ -9,14 +9,23 @@ A web application designed to help users discover hiking trails in Washington St
 
 To run the project locally:  
 
-1. Clone the repository:  
+1. Download Docker Desktop: Create an account if you don't already have one.
+2. Ensure the Docker Engine is running in the background. 
+    The docker commands will not work if it is not.
+3. Clone the repository:  
    ```bash
    git clone https://github.com/your-repo/bigfoots-guide.git
    cd bigfoots-guide
-2. Build and run the application using Docker:
-    docker-compose up --build
-3. Naviagate to the application locally:
+4. Build and run the application using Docker:
+   ```bash
+   docker-compose up --build
+5. Naviagate to the application locally:
     http://localhost:5173/
+
+>[!NOTE]
+>After you initially build the project, you will not need to rebuild unless the codebase changes. When re-running the webpage, use:
+>```bash
+>docker-compose up
 
 ## **Project Tech Stack**
 ### **Frontend**
