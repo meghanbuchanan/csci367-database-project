@@ -100,7 +100,7 @@ const HomePage = () => {
         style={{
           position: 'absolute', 
           bottom: '0px', 
-          left: '40px',
+          left: '30px',
           width: '450px',
           height: '400px',
           objectFit: 'cover',
@@ -111,7 +111,7 @@ const HomePage = () => {
         alt="Bigfoot"
         style={{
           position: 'absolute', 
-          bottom: '300px', 
+          bottom: '200px', 
           right: '0px',
           width: '475px',
           height: '375px',

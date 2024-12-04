@@ -1,7 +1,7 @@
 # **Bigfoot's Guide to WA Parks**  
 ### **CSCI 367 Final Project**  
 
-A web application designed to help users discover hiking trails in Washington State’s National Parks. Whether you’re planning your next adventure or exploring virtually, Bigfoot’s Guide provides detailed trail information to make your exploration easier and more enjoyable.  
+A web application designed to help users discover hiking trails in Washington State’s National Parks. Whether you’re planning your next adventure or exploring virtually, Bigfoot’s Guide provides detailed trail information to ensure your prepared for your next hike.
 
 ---
 
@@ -19,12 +19,12 @@ To run the project locally:
     http://localhost:5173/
 
 ## **Project Tech Stack**
-    *Frontend*
+### **Frontend**
     React: User Interface Library
     TypeScript: A strongly typed programming language that builds on JavaScript
     Vite: Project tooling
 
-    *Backend*
+### **Backend**
     Python: Server-side logic
     SQL: Database for trail and park data
     Docker: Simplified deployment and dependency management
